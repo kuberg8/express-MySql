@@ -35,6 +35,12 @@ class UserController {
         }
       }
 
+      
+      if (req.body.photo) {
+        fields.push(`photo = ?`);
+        params.push(Buffer.from(req.body.photo, 'base64'));
+      }
+
       const query = `UPDATE users SET ${fields.join(', ')} WHERE id = ${id}`
 
       db.query(query, params, (error, results) => {
